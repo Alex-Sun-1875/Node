@@ -1,2 +1,3 @@
-shared_library("replace_with_your_module") {
+shared_library("hello") {
+  sources = [ "src/hello.cc" ]
 }
