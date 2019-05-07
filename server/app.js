@@ -47,3 +47,13 @@ app.post('/upload',mutipartMiddeware,function (req,res) {
 
   res.send('upload success!');
 });
+
+app.get('/download', function(req, res, next) {
+  var path = req.path;
+  var file = fs.createReadStream(path);
+  res.writeHead(200, {
+    'Content-Type': 'application/force-download',
+    'Content-Disposition': 'attachment; filename=' + req.path
+  });
+  file.pipe(res);
+});
