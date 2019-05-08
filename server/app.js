@@ -39,21 +39,29 @@ app.post('/upload',mutipartMiddeware,function (req,res) {
   fs.rename(tmp_path, target_path, function(err) {
     if (err) throw err;
     // 删除临时文件
+    /*
     fs.unlink(tmp_path, function(err) {
       if (err) throw err;
       res.send('File uploaded to: ' + target_path + '-' + req.files.file.size + ' bytes');
     });
+    */
   });
 
-  res.send('upload success!');
+  res.send("upload success!");
 });
 
-app.get('/download', function(req, res, next) {
-  var path = req.path;
-  var file = fs.createReadStream(path);
-  res.writeHead(200, {
-    'Content-Type': 'application/force-download',
-    'Content-Disposition': 'attachment; filename=' + req.path
+app.get('/download/:filename', function(req, res) {
+  var filename = './download/' + req.params.filename;
+  res.set({
+    'Content-Type': 'application/octet-stream',
+    'Content-Disposition': 'attachment; filename=' + filename,
   });
-  file.pipe(res);
+  //filename是服务器上的文件的具体路径
+  fs.createReadStream(filename).pipe(res);
+});
+
+var transform_state = "not_done";
+
+app.get('/state', function(req, res) {
+  res.json({download_path: 'Mavic_2_Pro_Quick_Start_Guide_CHS.docx'});
 });
