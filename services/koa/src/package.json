@@ -1,0 +1,16 @@
+{
+  "name": "vue-koa-service",
+  "version": "1.0.0",
+  "description": "Learn Koa & Vue",
+  "main": "app.js",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sunlh",
+  "license": "ISC"
+}
