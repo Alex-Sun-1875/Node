@@ -1,7 +1,7 @@
 const db = require("../config/db");
 const transformModel = "../schema/transform";
 
-const Transform = db.TransfromSequelize;
+const Transform = db.TransformSequelize;
 const transformEntrys = Transform.import(transformModel);
 
 const getTransformEntrys = async function(data) {

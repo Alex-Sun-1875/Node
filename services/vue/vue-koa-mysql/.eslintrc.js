@@ -33,5 +33,6 @@ module.exports = {
     "no-irregular-whitespace": 0,
     "no-multi-spaces": 0,
     "space-before-function-paren": [2, {"anonymous": "never", "named": "never"}],
+    "yoda": [2, "always"]
   }
 }

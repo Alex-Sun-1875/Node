@@ -2,7 +2,7 @@
 /* eslint-disable no-multi-spaces */
 const Sequelize =  require("sequelize");
 
-const TransfromSequelize = new Sequelize(
+const TransformSequelize = new Sequelize(
   "koa",                    // 数据库名
   "vue-koa",                // 用户名
   "123456",                 // 用户密码
@@ -21,5 +21,5 @@ const TransfromSequelize = new Sequelize(
 );
 
 module.exports =  {
-  TransfromSequelize
+  TransformSequelize
 }
