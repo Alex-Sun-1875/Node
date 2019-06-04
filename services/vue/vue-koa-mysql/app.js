@@ -5,6 +5,7 @@ const logger = require("koa-logger");
 const bodyparse = require("koa-bodyparser");
 
 const transform = require("./server/controllers/transform");
+const users = require("./server/controllers/users");
 
 const app = new Koa();  // new 一个 koa 对象
 const router = new Router();
@@ -25,6 +26,14 @@ router.get("/api/test", async (ctx, next) => {
 router.get("/transform/entrys", async (ctx, next) => {
   const result = await transform.getTransformEntrys();
   ctx.body = result;
+});
+
+router.post("/login", (ctx, next) => {
+  users.login(ctx);
+});
+
+router.post("/register", (ctx, next) => {
+  users.register(ctx);
 });
 
 app.listen(8000, () => {
