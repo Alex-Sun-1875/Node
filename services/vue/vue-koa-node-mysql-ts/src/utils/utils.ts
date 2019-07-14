@@ -79,6 +79,20 @@ export function clearCookie(name: string) {
 }
 
 // 获取 QueryString 的数组
+export function getQueryString() {
+  const result = window.location.search.match(
+    new RegExp('[?&][^?&]+=[^?&]+', 'g'),
+  );
+  if (null == result) {
+    return '';
+  }
+  for (let i = 0; i < result.length; ++i) {
+    result[i] = result[i].substring(1);
+  }
+  return result;
+}
+
+// 根据 QueryString 的参数名称获取值
 export function getQueryStringByName(name: string) {
   const result = window.location.search.match(
     new RegExp('[?&]' + name + '=([^&]+)', 'i'),
@@ -87,4 +101,62 @@ export function getQueryStringByName(name: string) {
     return '';
   }
   return result[1];
+}
+
+// 获取页面顶部被卷起来的高度
+export function getScrollTop() {
+  return Math.max(
+    // chrome
+    document.body.scrollTop,
+    // firefox/IE
+    document.documentElement.scrollTop,
+  );
+}
+
+// 获取页面文档的总高度
+export function getDocumentHeight() {
+  return Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+  );
+}
+
+// 浏览器可视窗口的高度
+export function getWindowHeight() {
+  return document.compatMode === 'CSS1Compat'
+    ? document.documentElement.clientHeight
+    : document.body.clientHeight;
+}
+
+// 事件格式化成 2018-12-12 12:12:12
+export function timestampToTime(timestamp: any, dayMinSecFlag: boolean) {
+  const date = new Date(timestamp);
+  const Y = date.getFullYear() + '-';
+  const M =
+    (date.getMonth() + 1 < 10
+      ? '0' + (date.getMonth() + 1)
+      : date.getMonth() + 1) + '-';
+  const D =
+    date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate() + ' ';
+  const h =
+    date.getHours() < 10 ? '0' + date.getHours() + ':' : date.getHours() + ':';
+  const m =
+    date.getMinutes() < 10
+      ? '0' + date.getMinutes() + ':'
+      : date.getHours() + ':';
+  const s =
+    date.getSeconds() < 10 ? '0' + date.getSeconds() + ':' : date.getSeconds();
+
+  if (!dayMinSecFlag) {
+    return Y + M + D;
+  }
+  return Y + M + D + h + m + s;
+}
+
+// 判断是移动端还是 pc 端, true 表示移动端, false 表示 pc 端
+export function isMobileOrPc() {
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    return true;
+  }
+  return false;
 }

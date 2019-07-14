@@ -3,10 +3,18 @@ import axios from 'axios';
 
 // 创建 axios 实例
 let service: any = {};
-service = axios.create({
-  baseURL: '/api', // api 的 base_url
-  timeout: 50000, // 请求超时时间
-});
+if ('development' === process.env.NODE_ENV) {
+  service = axios.create({
+    baseURL: '/api', // api 的 base_url
+    timeout: 50000, // 请求超时时间
+  });
+} else {
+  // 生产环境
+  service = axios.create({
+    baseURL: '/api',  // api 的 base_url
+    timeout: 50000, // 请求超时时间
+  });
+}
 
 // request 拦截器 axios 的一些配置
 service.interceptors.request.use(
