@@ -139,7 +139,7 @@ export default class CommentList extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 
 .comment-list {
   text-align: center;

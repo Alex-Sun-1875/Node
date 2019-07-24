@@ -83,7 +83,7 @@ export default class Archive extends Vue {
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='scss' scoped>
 .archive {
   padding: 40px 0;
   .year {

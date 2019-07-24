@@ -311,7 +311,7 @@ export default class ArticleDetail extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .anchor {
   display: block;
   position: sticky;

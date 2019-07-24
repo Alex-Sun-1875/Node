@@ -70,7 +70,7 @@ class MarkUtils {
       return `<h${level} id=${anchor}>${text}</h${level}>\n`;
     };
     this.rendererMD.table = function (header, body) {
-      return '<table class="table" border="0" cellspacing="0" cellpadding="0">' + header + body + '</table>'
+      return '<table class="table" border="0" cellspacing="0" cellpadding="0">' + header + body + '</table>';
     }
     highlight.configure({ useBR: true });
     marked.setOptions({

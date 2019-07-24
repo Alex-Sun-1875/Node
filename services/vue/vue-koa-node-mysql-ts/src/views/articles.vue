@@ -43,7 +43,7 @@ import {
   getQueryStringByName,
   timestampToTime
 } from '@/utils/utils';
-import LoadEnd from '@/components/LoadEnd.vue';
+import LoadEnd from '@/components/loadEnd.vue';
 import LoadingCustom from '@/components/loading.vue';
 
 // 获取可视区域的高度
@@ -165,7 +165,7 @@ export default class Articles extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .left {
   .article-list {
     margin: 0;

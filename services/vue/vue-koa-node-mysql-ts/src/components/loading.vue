@@ -10,7 +10,7 @@ import { Vue, Component } from 'vue-property-decorator';
 @Component
 export default class LoadingCustom extends Vue {}
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .loading {
   text-align: center;
   padding: 30px;

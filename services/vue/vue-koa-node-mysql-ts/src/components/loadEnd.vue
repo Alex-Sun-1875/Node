@@ -8,7 +8,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class LoadEnd extends Vue {}
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .load-end {
   text-align: center;
   padding: 30px;
