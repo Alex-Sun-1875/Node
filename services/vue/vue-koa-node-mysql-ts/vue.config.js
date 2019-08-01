@@ -26,7 +26,14 @@ module.exports = {
         extensions: [".js", ".vue", ".json", ".ts", ".tsx"],
         alias: {
           vue$: "vue/dist/vue.js",
-          "@": path.resolve(__dirname, "./src")
+          "@": path.resolve(__dirname, "./src"),
+          "@c": path.resolve(__dirname, "./src/components"),
+          utils: path.resolve(__dirname, "./src/utils"),
+          less: path.resolve(__dirname, "./src/less"),
+          views: path.resolve(__dirname, "./src/views"),
+          assets: path.resolve(__dirname, "./src/assets"),
+          store: path.resolve(__dirname, "./src/store"),
+          mixins: path.resolve(__dirname, "./stc/mixins")
         }
       }
     });

@@ -121,7 +121,7 @@ export default class Articles extends Vue {
   articleDetail(id: string) {
     let url: string = '';
     if (process.env.NODE_ENV === 'development') {
-      url = 'http://localhost:3001/articleDetail?';
+      url = 'http://localhost:3000/articleDetail?';
     } else {
       url = 'https://biaochenxuying.cn/articleDetail?';
     }
