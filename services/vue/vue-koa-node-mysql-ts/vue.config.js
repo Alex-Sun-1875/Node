@@ -32,8 +32,9 @@ module.exports = {
           less: path.resolve(__dirname, "./src/less"),
           views: path.resolve(__dirname, "./src/views"),
           assets: path.resolve(__dirname, "./src/assets"),
+          com: path.resolve(__dirname, "./src/components"),
           store: path.resolve(__dirname, "./src/store"),
-          mixins: path.resolve(__dirname, "./stc/mixins")
+          mixins: path.resolve(__dirname, "./src/mixins")
         }
       }
     });
@@ -62,19 +63,18 @@ module.exports = {
     open: process.platform === "darwin",
     host: "localhost",
     port: 3001, //8080,
-    https: false,
+    https: true,
     hotOnly: false,
     proxy: {
       // 设置代理
       // proxy all requests starting with /api to jsonplaceholder
       "/api": {
-        // target: "https://emm.cmccbigdata.com:8443/",
-        target: "http://localhost:3000/",
-        // target: "http://47.106.136.114/",
+        // target: "http://localhost:3000/",
+        target: "https://biaochenxuying.cn",
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          "^/api": ""
+          "^/api": "/api"
         }
       }
     },

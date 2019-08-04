@@ -2,7 +2,6 @@
   <div id="app" class="container">
     <div class="layout">
       <Articles v-if="isShow"></Articles>
-      <img src="./assets/bg.jpg" />
     </div>
   </div>
 </template>

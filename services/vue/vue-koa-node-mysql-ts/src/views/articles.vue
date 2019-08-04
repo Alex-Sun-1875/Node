@@ -134,12 +134,12 @@ export default class Articles extends Vue {
 
   async handleSearch() {
     this.isLoading = true;
-    const res: any = this.$https.get(this.$urls.getArticleList, {
+    const res: any = await this.$https.get(this.$urls.getArticleList, {
       params: this.params
     });
     this.isLoading = false;
     if (res.status === 200) {
-      if (res.data.data.code === 0) {
+      if (res.data.code === 0) {
         const data: any = res.data.data;
         this.articlesList = [...this.articlesList, ...data.list];
         this.total = data.count;
