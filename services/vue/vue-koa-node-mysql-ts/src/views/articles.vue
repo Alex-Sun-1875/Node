@@ -3,15 +3,10 @@
     <h3 v-if="params.tag_id" class="left-title">{{tag_name}} 相关文章: </h3>
     <ul class="articles-list" id="list">
       <transition-group name="el-fade-in">
-        <li @click="articleDetail(article.id)"
+        <li @click="articleDetail(article._id)"
             v-for="(article) in articlesList"
             :key="article._id"
             class="item">
-          <img class="wrap-img img-blur-done"
-               :data-src="article.img_url"
-               data-has-lazy-src="false"
-               src="../assets/bg.jpg"
-               alt="封面文章" />
           <div class="content">
             <h4 class="title">{{article.title}}</h4>
             <p class="abstract">{{article.desc}}</p>
@@ -121,7 +116,8 @@ export default class Articles extends Vue {
   articleDetail(id: string) {
     let url: string = '';
     if (process.env.NODE_ENV === 'development') {
-      url = 'http://localhost:3000/articleDetail?';
+      url = 'https://localhost:3001/articleDetail?';
+      // url = 'https://biaochenxuying.cn/articleDetail?';
     } else {
       url = 'https://biaochenxuying.cn/articleDetail?';
     }

@@ -75,6 +75,14 @@ module.exports = {
         ws: true,
         pathRewrite: {
           "^/api": "/api"
+        },
+        'articleDetail': {
+          target: 'https://biaochenxuying.cn',
+          changeOrigin: true,
+          ws: true,
+          pathRewrite: {
+            "^/articleDetail": "articleDetail"
+          }
         }
       }
     },

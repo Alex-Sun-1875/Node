@@ -9,7 +9,7 @@
           <div class="author">
             <div class="avatar">
               <img class="auth-logo"
-                   src="../assets/userLogo.jepg"
+                   src="../assets/userLogo.jpeg"
                    alt="Login">
             </div>
             <div class="info">
@@ -62,7 +62,7 @@
                      :loading="isLoading"
                      @click="likeArticle">
             点赞
-          <el-button>
+          </el-button>
         </div>
         <div class="comment">
           <el-input placeholder="评论"
