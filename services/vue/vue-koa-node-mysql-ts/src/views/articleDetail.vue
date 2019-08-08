@@ -248,8 +248,8 @@ export default class ArticleDetail extends Vue {
         let description = res.data.data.desc;
         let title = res.data.data.title;
         document.title = title;
-        document.querySelector('#keywords').setAttribute('content', keyword);
-        document.querySelector('#description').setAttribute('content', description);
+        // document.querySelector('#keywords').setAttribute('content', keyword);
+        // document.querySelector('#description').setAttribute('content', description);
       } else {
         this.$message({
           message: res.data.message,

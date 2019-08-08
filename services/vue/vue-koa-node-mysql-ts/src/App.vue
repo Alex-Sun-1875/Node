@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="container">
-    <div class="layout">
+    <div class=" layout">
+      <router-view />
       <Articles v-if="isShow"></Articles>
     </div>
   </div>
