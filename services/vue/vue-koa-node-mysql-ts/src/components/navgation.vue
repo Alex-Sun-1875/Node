@@ -144,6 +144,7 @@ import RegisterAndLogin from '@/components/registerAndLogin';
 import { isMobileOrPc, getQueryStringByName } from '@/utils/utils';
 import { Route } from 'vue-router';
 import { ObjectFit } from 'element-ui/types/image';
+import user from '../store/modules/user';
 
 @Component({
   components: {
@@ -196,6 +197,299 @@ export default class Navigation extends Vue {
   leaveSlideDown: boolean = false;
   isShow: boolean = false;
   isMobile: boolean = isMobileOrPc();
+
+  mounted() {
+    // 授权登录,有 code 参数
+    this.routeChange(this.$route, this.$route);
+    const code: string = getQueryStringByName('code');
+    if (code) {
+      this.getUser(code);
+    }
+  }
+
+  get userInfo() {
+    let userInfo: any = {
+      _id: '',
+      name: '',
+      avator: '', 
+    };
+    if (window.sessionStorage.userInfo) {
+      userInfo = JSON.parse(window.sessionStorage.userInfo);
+      this.$store.commit('SAVE_USER', {
+        userInfo
+      });
+    }
+    if (this.$store.state.user.userInfo) {
+      userInfo = this.$store.state.user.userInfo;
+    }
+    return userInfo;
+  }
+
+  @Watch('$route')
+  routeChange(val: Route, oldVal: Route) {
+    for (let i = 0; i < this.list.length; ++i) {
+      const l: any = this.list[i];
+      if (l.path === val.path) {
+        this.activeIndex = i + 1 + '';
+        this.title = l.name;
+        break;
+      }
+    }
+  }
+
+  handleClickMenu(route: string) {
+    this.isShow = false;
+    if (route === '/login') {
+      this.handleFlag = 'login';
+      this.visible = true;
+    }
+    if (route === '/register') {
+      this.handleFlag = 'register';
+      this.visible = true;
+    }
+    if (route === '/logout') {
+      this.handleLogout();
+    }
+  }
+
+  handleMenu() {
+    this.isShow = true;
+    this.enterSlideUp = true;
+  }
+
+  handleHideMenu() {
+    this.enterSlideUp = false;
+    this.leaveSlideDown = true;
+    setTimeout(() => {
+      this.leaveSlideDown = false;
+      this.isShow = false;
+    }, 300);
+  }
+
+  async getUser(code: any) {
+    const loading: any = this.$loading({
+      lock: true,
+      text: 'Loading',
+      spinner: 'el-icon-loading',
+      background: 'rgba(255, 255, 255, 0.7)',
+    });
+    let res: any = await this.$https.post(
+      this.$urls.getUser,
+      { code },
+      { withCredentials: true }
+    );
+    loading.close();
+    if (res.status === 200) {
+      if (res.data.code === 0) {
+        const data: any = res.data.data;
+        const userInfo: object = {
+          _id: data._id,
+          name: data.name,
+          avatar: data.avatar,
+        };
+        this.$store.commit('SAVE_USER', {
+          userInfo
+        });
+        window.sessionStorage.userInfo = JSON.stringify(userInfo);
+        this.$message.success(res.data.message);
+        let preventHistory = JSON.parse(window.sessionStorage.preventHistory);
+        if (preventHistory) {
+          this.$router.push({
+            path: preventHistory.name,
+            query: preventHistory.query,
+          });
+        }
+        return false;
+      } else {
+        this.$message.error(res.data.message);
+        return true;
+      }
+    } else {
+      this.$message.error('网络错误');
+      return true;
+    }
+  }
+
+  handleLogout() {
+    window.sessionStorage.userInfo = '';
+    this.$store.commit('SAVE_USER', {
+      userInfo: {
+        _id: '',
+        name: '',
+        avator: '',
+      } 
+    });
+  }
+
+  handleClick(value: string) {
+    this.handleFlag = value;
+    this.visible = true;
+  }
+
+  handleCancel(value: boolean) {
+    this.visible = value;
+  }
+
+  handleOk(value: boolean) {
+    this.visible = value;
+  }
+
+  handleSelect(val: string, oldVal: string) {
+    this.activeIndex = val;
+  }
 }
 
 </script>
+
+<style lang="scss" scoped>
+.nav-mobile {
+  display: flex;
+  line-height: 60px;
+  .nav-mobile-logo {
+    flex: 1;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+  .title {
+    flex: 3;
+    font-size: 24px;
+  }
+  .menu {
+    flex: 1;
+    font-size: 34px;
+    color: #409eff;
+  }
+}
+
+.nav-mobile-content {
+  font-size: 0.3rem;
+  height: 7.3rem;
+  width: 100%;
+  background-color: #fff;
+  .list {
+    .item {
+      line-height: 0.8rem;
+      color: #303133;
+      border-bottom: 1px solid #eee;
+      a {
+        display: block;
+        width: 100%;
+        color: #409eff;
+        text-decoration-line: none;
+      }
+    }
+  }
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  .nav-content {
+    width: 1200px;
+    margin: 0 auto;
+  }
+  .logo {
+    height: 50px;
+    margin: 0;
+    border-radius: 50%;
+    margin-top: 5px;
+  }
+  .el-menu.el-menu-horizontal {
+    border-bottom: none;
+  }
+  .el-menu-horizontal > .el-menu-item {
+    cursor: pointer;
+    color: #333;
+  }
+  .nav-right {
+    position: relative;
+    padding-top: 15px;
+    text-align: right;
+    .el-dropdown {
+      cursor: pointer;
+      padding-right: 60px;
+    }
+    .user-img {
+      position: absolute;
+      top: -15px;
+      right: 0;
+      width: 50px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.enter-slideUp,
+.leave-slideDown {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1010;
+}
+
+.enter-slideUp {
+  overflow: auto;
+  visibility: visible;
+  z-index: 1001;
+  animation: slideUp 0.3s forwards;
+}
+
+.leave-slideDown {
+  visibility: visible;
+  z-index: 1001;
+  animation: slideDown 0.3s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    opacity: 0.1;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 100%, 0);
+    opacity: 0;
+  }
+}
+
+.mask {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+}
+
+.mask-fade-out {
+  animation: maskFadeOut 0.4s forwards;
+}
+
+@keyframes maskFadeOut {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+</style>
