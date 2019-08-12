@@ -140,7 +140,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import RegisterAndLogin from '@/components/registerAndLogin';
+import RegisterAndLogin from '@/components/registerAndLogin.vue';
 import { isMobileOrPc, getQueryStringByName } from '@/utils/utils';
 import { Route } from 'vue-router';
 import { ObjectFit } from 'element-ui/types/image';
@@ -211,7 +211,7 @@ export default class Navigation extends Vue {
     let userInfo: any = {
       _id: '',
       name: '',
-      avator: '', 
+      avator: '',
     };
     if (window.sessionStorage.userInfo) {
       userInfo = JSON.parse(window.sessionStorage.userInfo);
@@ -317,7 +317,7 @@ export default class Navigation extends Vue {
         _id: '',
         name: '',
         avator: '',
-      } 
+      }
     });
   }
 

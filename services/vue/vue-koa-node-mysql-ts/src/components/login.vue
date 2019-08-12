@@ -11,7 +11,7 @@
       </FormItem>
       <FormItem Label="密码"
                 :label-width="formLabelWidth">
-        <Input type="password"        
+        <Input type="password"
                placeholder="密码"
                v-model="params.password"
                autocomplete="off">
@@ -77,7 +77,7 @@ export default class Login extends Vue {
     };
     window.sessionStorage.preventHistory = JSON.stringify(preventHistory);
     // window.location.href = 'https://github.com/login/oauth/authorize?client_id=6de90ab270aea2bdb01c&redirect_uri=http://biaochenxuying.cn/login'
-    window.location.href = `${config.oauth_url}?client_id=${
+    window.location.href = `${config.oauth_uri}?client_id=${
       config.client_id
     }&redirect_uri=${config.redirect_uri}`;
   }
@@ -104,7 +104,7 @@ export default class Login extends Vue {
       return;
     }
     this.submit();
-  } 
+  }
 
   // this.$emit
   @Emit()
