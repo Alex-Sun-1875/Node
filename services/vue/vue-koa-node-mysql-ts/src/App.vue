@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <Navigation v-if="isShowNav"></Navigation>
+    <Navigation v-if="isShowNav" />
     <div class=" layout">
       <router-view />
       <Slider v-if="isShowSlider"></Slider>
@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Route } from 'vue-router';
-import Navigation from '@/components/navgation.vue';
+import Navigation from '@/components/navigation.vue';
 import Slider from '@/components/slider.vue';
 import Footer from '@/components/footer.vue';
 import ArrowUp from '@/components/arrowUp.vue';
@@ -38,18 +38,18 @@ export default class App extends Vue {
   isShowSlider: boolean = false;
 
   mounted() {
-    this.$routeChange(this.$$route, this.$route);
+    this.routeChange(this.$route, this.$route);
   }
 
   @Watch('$route')
   routeChange(val: Route, oldVal: Route) {
-    const referrer: any = window.document.getElementById('referrer');
+    // const referrer: any = window.document.getElementById('referrer');
     if (val.path === '/') {
-      this.isShowNav = false;
-      referrer.setAttribute('content', 'always');
+      this.isShowNav = true;
+      // referrer.setAttribute('content', 'always');
     } else {
       this.isShowNav = true;
-      referrer.setAttribute('content', 'never');
+      // referrer.setAttribute('content', 'never');
     }
     if (val.path === '/articles' ||
         val.path === '/archive' ||

@@ -26,7 +26,7 @@
               </el-menu-item>
             </el-menu>
           </el-col>
-          <el-col v-if="usetInfo._id"
+          <el-col v-if="userInfo._id"
                   :span="5">
             <div class="nav-right">
               <el-dropdown @command="handleLogout">
@@ -77,52 +77,57 @@
         </div>
         <div class="title">{{title}}</div>
         <div class="menu"
-             :class="{'enter-slideUp': enterSlideUp, 'leave-slideDown': leaveSlideDown}">
-          <div class="list">
-            <div @click="handleClickMenu"
-                 class="item">
-              <router-link to="/">首页</router-link>
-            </div>
-            <div @click="handleClickMenu('/articles')"
-                 class="item">
-              <router-link to="/articles">文章<router-link>
-            </div>
-            <div @click="handleClickMenu('/archive')"
-                 class="item">
-              <router-link to="/archive">归档</router-link>
-            </div>
-            <div @click="handleClickMenu('/project')"
-                 class="item">
-              <router-link to="/project">项目</router-link>
-            </div>
-            <div @click="handleClickMenu('/timeline')"
-                 class="item">
-              <router-link to="/timeline">历程</router-link>
-            </div>
-            <div @click="handleClickMenu('/message')"
-                 class="item">
-              <router-link to="/message">留言</router-link>
-            </div>
-            <div @click="handleClickMenu('/about')"
-                 class="item">
-              <router-link to="/about">关于</router-link>
-            </div>
-            <div @click="handleClickMenu('/login')"
-                 class="item">
-              <span v-if="userInfo._id">{{ userInfo.name }}</span>
-              <span v-else>登录</span>
-            </div>
-            <div v-if="!userInfo._id"
-                 @click="handleClickMenu('register')"
-                 class="item">
-              注册
-            </div>
-            <div v-if="userInfo._id"
-                 @click="handleClickMenu('/logout')"
-                 class="item">
-              退出登录
-            </div>
+             @click="handleMenu"><i class="el-icon-menu"></i>
+        </div>
+      </div>
+      <div v-if="isShow"
+           class="nav-mobile-content"
+           :class="{'enter-slideUp': enterSlideUp, 'leave-slideDown': leaveSlideDown}">
+        <div class="list">
+          <div @click="handleClickMenu"
+                class="item">
+            <router-link to="/">首页</router-link>
           </div>
+          <div @click="handleClickMenu('/articles')"
+                class="item">
+            <router-link to="/articles">文章</router-link>
+          </div>
+          <div @click="handleClickMenu('/archive')"
+                class="item">
+            <router-link to="/archive">归档</router-link>
+          </div>
+          <div @click="handleClickMenu('/project')"
+                class="item">
+            <router-link to="/project">项目</router-link>
+          </div>
+          <div @click="handleClickMenu('/timeline')"
+                class="item">
+            <router-link to="/timeline">历程</router-link>
+          </div>
+          <div @click="handleClickMenu('/message')"
+                class="item">
+            <router-link to="/message">留言</router-link>
+          </div>
+          <div @click="handleClickMenu('/about')"
+                class="item">
+            <router-link to="/about">关于</router-link>
+          </div>
+          <div @click="handleClickMenu('/login')"
+                class="item">
+            <span v-if="userInfo._id">{{ userInfo.name }}</span>
+            <span v-else>登录</span>
+          </div>
+          <div v-if="!userInfo._id"
+                @click="handleClickMenu('register')"
+                class="item">
+            注册
+          </div>
+          <div v-if="userInfo._id"
+                @click="handleClickMenu('/logout')"
+                class="item">
+            退出登录
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="isShow"

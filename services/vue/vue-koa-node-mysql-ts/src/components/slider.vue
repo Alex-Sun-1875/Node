@@ -1,7 +1,7 @@
 <template>
   <div class="right slider">
     <img class="right-logo"
-         src="../assets/userLogo.jepg"
+         src="../assets/userLogo.jpeg"
          alt="">
     <div class="title">Chromium</div>
     <div class="right-content"></div>
