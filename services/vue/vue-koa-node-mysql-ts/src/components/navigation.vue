@@ -389,8 +389,8 @@ export default class Navigation extends Vue {
   left: 0;
   z-index: 1000;
   width: 100%;
-  border-bottom: 1px solid #eee;
-  background-color: #fff;
+  // border-bottom: 1px solid #eee;
+  // background-color: #fff;
   .nav-content {
     width: 1200px;
     margin: 0 auto;
