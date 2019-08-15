@@ -163,7 +163,7 @@ export default class Articles extends Vue {
 </script>
 <style lang="scss" scoped>
 .left {
-  .article-list {
+  .articles-list {
     margin: 0;
     padding: 0;
     list-style: none;
