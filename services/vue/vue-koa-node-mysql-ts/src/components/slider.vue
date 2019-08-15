@@ -3,7 +3,7 @@
     <img class="right-logo"
          src="../assets/userLogo.jpeg"
          alt="">
-    <div class="title">Chromium</div>
+    <div class="title">齐德隆咚强</div>
     <div class="right-content"></div>
     <div class="tag">
       <div class="title">标签</div>

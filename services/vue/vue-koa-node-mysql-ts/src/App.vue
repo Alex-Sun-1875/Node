@@ -43,13 +43,13 @@ export default class App extends Vue {
 
   @Watch('$route')
   routeChange(val: Route, oldVal: Route) {
-    // const referrer: any = window.document.getElementById('referrer');
+    const referrer: any = window.document.getElementById('referrer');
     if (val.path === '/') {
       this.isShowNav = true;
-      // referrer.setAttribute('content', 'always');
+      referrer.setAttribute('content', 'always');
     } else {
       this.isShowNav = true;
-      // referrer.setAttribute('content', 'never');
+      referrer.setAttribute('content', 'never');
     }
     if (val.path === '/articles' ||
         val.path === '/archive' ||

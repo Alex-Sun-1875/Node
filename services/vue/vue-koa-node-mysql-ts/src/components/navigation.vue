@@ -6,9 +6,6 @@
         <el-row :gutter="20">
           <el-col :span="3">
             <router-link to="/">
-              <img class="logo"
-                   src="../assets/logo.jpg"
-                   alt="home">
             </router-link>
           </el-col>
           <el-col :span="16">
