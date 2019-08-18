@@ -70,15 +70,16 @@ module.exports = {
       // 设置代理
       // proxy all requests starting with /api to jsonplaceholder
       "/api": {
-        // target: "http://localhost:3000/",
-        target: "https://biaochenxuying.cn",
+        target: "http://localhost:3000",
+        // target: "https://biaochenxuying.cn",
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          "^/api": "/api"
+          "^/api": ""
         },
         'articleDetail': {
-          target: 'https://biaochenxuying.cn',
+          target: "http://localhost:3000",
+          // target: 'https://biaochenxuying.cn',
           changeOrigin: true,
           ws: true,
           pathRewrite: {
