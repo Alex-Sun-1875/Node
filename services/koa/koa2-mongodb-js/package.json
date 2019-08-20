@@ -9,7 +9,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "consola": "^2.10.1",
+    "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
+    "ejs": "^2.6.2",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
@@ -19,9 +22,18 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
-    "pug": "^2.0.3"
+    "mongodb": "^3.3.0",
+    "mongoose": "^5.6.9",
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-auto-increment-reworked": "^1.2.1",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^1.19.1"
   }
 }
