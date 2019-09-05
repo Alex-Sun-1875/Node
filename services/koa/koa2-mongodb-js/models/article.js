@@ -4,7 +4,7 @@
  * @module model/article
  */
 
-const mongoose = require('../core/mongodb.js');
+const { mongoose } = require('../core/mongodb.js');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 文章类型
@@ -63,7 +63,7 @@ const articleSchema = new mongoose.Schema({
       introduce: { type: String, default: '' },
 
       // 头像
-      avatar: { type: String, default: 'user'},
+      avatar: { type: String, default: 'user' },
 
       // 创建日期
       create_time: { type: Date, default: Date.now },
