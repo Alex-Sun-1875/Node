@@ -3,8 +3,7 @@ const CONFIG = require('../app.config');
 const User = require('../models/user');
 // const OAuth = require('../models/oauth');
 
-import { MD5_SUFFIX, responseClient, md5 } from '../util/util';
-import { userInfo } from 'os';
+import { MD5_SUFFIX, responseClient, md5 } from '../util/util.js';
 
 // 第三方授权登录的用户信息
 exports.getUser = (req, res) => {

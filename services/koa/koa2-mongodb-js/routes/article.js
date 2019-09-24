@@ -1,7 +1,6 @@
 import Article from '../models/article';
 import User from '../models/user';
 import { responseClient, timestampToTime } from '../util/utils';
-import { stat } from 'fs';
 
 exports.addArticle = (req, res) => {
   const {
