@@ -35,12 +35,14 @@ const projectSchema = new mongoose.Schema({
 });
 
 // 自增 ID 插件配置
+/*
 projectSchema.plugin(autoIncrement.plugin, {
   model: 'Project',
   field: 'id',
   startAt: 1,
   incrementBy: 1,
 });
+*/
 
 // 项目模型
 module.exports = mongoose.model('Project', projectSchema);

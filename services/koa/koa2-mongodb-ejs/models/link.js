@@ -4,7 +4,7 @@
  * @module model/link
  */
 
-const { mongoose } = require('../core/mongodb');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 链接模型

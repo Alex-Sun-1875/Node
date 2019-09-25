@@ -6,7 +6,7 @@
 
 const crypto = require('crypto');
 const { argv } = require('yargs');
-const { mongoose } = require('../core/mongodb.js');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 const adminSchema = new mongoose.Schema({

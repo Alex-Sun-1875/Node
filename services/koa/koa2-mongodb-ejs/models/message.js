@@ -4,7 +4,7 @@
  * @module model/message
  */
 
-const { mongoose } = require('../core/mongodb');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 留言模型

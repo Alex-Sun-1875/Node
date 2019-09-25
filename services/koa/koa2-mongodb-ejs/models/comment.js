@@ -4,7 +4,7 @@
  * @module model/comment
  */
 
-const { mongoose } = require('../core/mongodb');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 评论模型

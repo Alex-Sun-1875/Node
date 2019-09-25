@@ -4,7 +4,7 @@
  * @module model/timeAxis
  */
 
-const { mongoose } = require('../core/mongodb');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 时间轴模型
@@ -17,7 +17,7 @@ const timeAxisSchema = new mongoose.Schema({
 
   // 状态 1 是已经完成, 2 是正在进行, 3 是没完成
   state: { type: Number, default: 1 },
-  
+
   // 开始日期
   start_time: { type: Date, default: Date.now },
 

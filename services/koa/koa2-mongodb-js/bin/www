@@ -5,9 +5,11 @@
  */
 
 // 解决 Node 无法使用 import
+/*
 require('babel-register')({
   presets: ['env']
 });
+*/
 
 var app = require('../app');
 var debug = require('debug')('demo:server');

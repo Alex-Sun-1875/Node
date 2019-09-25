@@ -3,7 +3,7 @@
  * @file model/user
  */
 
-const { mongoose } = require('../core/mongodb');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 const OAuthSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const OAuthSchema = new mongoose.Schema({
 
   // 手机
   phone: { type: String, default: '' },
-  
+
   // 邮箱
   email: { type: String, default: '' },
 

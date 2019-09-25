@@ -4,7 +4,7 @@
  * @module model/category
  */
 
-const { mongoose } = require('../core/mongodb');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 分类集合模型

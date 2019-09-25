@@ -6,6 +6,9 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+// import 等语法要用到 babel 支持
+require('babel-register');
+
 const index = require('./routes/index')
 // const users = require('./routes/users')
 

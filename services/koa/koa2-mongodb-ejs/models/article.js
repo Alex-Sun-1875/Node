@@ -4,7 +4,7 @@
  * @module model/article
  */
 
-const { mongoose } = require('../core/mongodb.js');
+const { mongoose } = require('../config/mongodb');
 const autoIncrement = require('mongoose-auto-increment');
 
 // 文章类型
