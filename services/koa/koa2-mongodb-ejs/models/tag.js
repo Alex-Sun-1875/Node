@@ -4,8 +4,7 @@
  * @module model/tag
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 标签模型
 const tagSchema = new mongoose.Schema({
@@ -28,12 +27,12 @@ const tagSchema = new mongoose.Schema({
 // 自增 ID 配置
 /*
 tagSchema.plugin(autoIncrement.plugin, {
-  model: 'Tag',
-  field: 'id',
+  model: "Tag",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
 // 标签模型
-module.exports = mongoose.model('Tag', tagSchema);
+module.exports = mongoose.model("Tag", tagSchema);

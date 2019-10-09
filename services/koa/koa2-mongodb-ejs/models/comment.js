@@ -4,8 +4,7 @@
  * @module model/comment
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 评论模型
 const commentSchema = new mongoose.Schema({
@@ -22,7 +21,7 @@ const commentSchema = new mongoose.Schema({
   likes: { type: Number, default: 0 },
 
   // 用户 ID
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
   // 父评论的用户信息
   user: {
@@ -30,13 +29,13 @@ const commentSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId },
 
     // 名字
-    name: { type: String, required: true, default: '' },
+    name: { type: String, required: true, default: "" },
 
     // 用户类型 0: 博主 1: 其它用户
     type: { type: Number, default: 1 },
 
     // 头像
-    avatar: { type: String, default: 'user' },
+    avatar: { type: String, default: "user" },
   },
 
   // 第三者评论
@@ -48,13 +47,13 @@ const commentSchema = new mongoose.Schema({
         user_id: { type: mongoose.Schema.Types.ObjectId },
 
         // 名字
-        name: { type: String, required: true, default: '' },
+        name: { type: String, required: true, default: "" },
 
         // 用户类型 0: 博主 1: 其它用户
         type: { type: Number, default: 1 },
 
         // 头像
-        avatar: { type: String, default: 'user' },
+        avatar: { type: String, default: "user" },
       },
 
       to_user: {
@@ -62,13 +61,13 @@ const commentSchema = new mongoose.Schema({
         user_id: { type: mongoose.Schema.Types.ObjectId },
 
         // 名字
-        name: { type: String, required: true, default: '' },
+        name: { type: String, required: true, default: "" },
 
         // 用户类型 0: 博主 1: 其它用户
         type: { type: Number, default: 1 },
 
         // 头像
-        avatar: { type: String, default: 'user' },
+        avatar: { type: String, default: "user" },
       },
 
       // 被赞数
@@ -101,12 +100,12 @@ const commentSchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 commentSchema.plugin(autoIncrement.plugin, {
-  model: 'Comment',
-  field: 'id',
+  model: "Comment",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
 // 标签模型
-module.exports = mongoose.model('Comment', commentSchema);
+module.exports = mongoose.model("Comment", commentSchema);

@@ -7,6 +7,7 @@ const views = require('koa-views')
 const co = require('co')
 const convert = require('koa-convert')
 const json = require('koa-json')
+const session = require("koa-session");
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
@@ -18,6 +19,7 @@ require('babel-register');
 
 const config = require('./config')
 const routes = require('./routes')
+const constant = require("./config/constant");
 
 const port = process.env.PORT || config.port
 
@@ -36,6 +38,11 @@ app.use(bodyparser())
   }))
   .use(router.routes())
   .use(router.allowedMethods())
+  .use(session(constant.SESSION_CONFIG, app))
+
+const mongodb = require('./config/mongodb');
+
+mongodb.connect();
 
 // logger
 app.use(async (ctx, next) => {

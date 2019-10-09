@@ -4,22 +4,23 @@
  * @module model/article
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 文章类型
 const articleSchema = new mongoose.Schema({
+  _id: Number,
+
   // 文章标题
   title: { type: String, require: true, validate: /\S+/ },
 
   // 文章关键字 (SEO)
-  keyword: [{ type: String, default: '' }],
+  keyword: [{ type: String, default: "" }],
 
   // 作者
   author: { type: String, required: true, validate: /\S+/ },
 
   // 文章描述
-  desc: { type: String, default: '' },
+  desc: { type: String, default: "" },
 
   // 文章内容
   content: { type: String, required: true, validate: /\S+/ },
@@ -28,7 +29,7 @@ const articleSchema = new mongoose.Schema({
   numbers: { type: String, required: true, validate: /\S+/ },
 
   // 封面图
-  img_url: { type: String, default: '' },
+  img_url: { type: String, default: "" },
 
   // 文章类型  => 1: 普通文章, 2: 简历, 3: 管理员介绍
   type: { type: Number, default: 1 },
@@ -40,12 +41,12 @@ const articleSchema = new mongoose.Schema({
   origin: { type: Number, default: 0 },
 
   // 文章标签
-  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag', required: true }],
+  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag", required: true }],
 
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', required: true, }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment", required: true, }],
 
   // 文章分类
-  category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true }],
+  category: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true }],
 
   // 点赞的用户
   like_users: [
@@ -54,16 +55,16 @@ const articleSchema = new mongoose.Schema({
       id: { type: mongoose.Schema.Types.ObjectId },
 
       // 名字
-      name: { type: String, required: true, default: '' },
+      name: { type: String, required: true, default: "" },
 
       // 用户类型 0: 博主, 1: 其它用户
       type: { type: Number, default: 1 },
 
       // 个人介绍
-      introduce: { type: String, default: '' },
+      introduce: { type: String, default: "" },
 
       // 头像
-      avatar: { type: String, default: 'user' },
+      avatar: { type: String, default: "user" },
 
       // 创建日期
       create_time: { type: Date, default: Date.now },
@@ -82,17 +83,10 @@ const articleSchema = new mongoose.Schema({
 
   // 最后修改日期
   update_time: { type: Date, default: Date.now },
-});
+}, {_id: false});
 
 // 自增 ID 插件配置
-/*
-articleSchema.plugin(autoIncrement.plugin, {
-  model: 'Article',
-  field: 'id',
-  startAt: 1,
-  incrementBy: 1,
-});
-*/
+// articleSchema.plugin(AutoIncrement);
 
 // 文章模型
-module.exports = mongoose.model('Article', articleSchema);
+module.exports = mongoose.model("Article", articleSchema);

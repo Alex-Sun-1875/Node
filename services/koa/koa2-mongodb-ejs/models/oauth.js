@@ -3,36 +3,35 @@
  * @file model/user
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 const OAuthSchema = new mongoose.Schema({
   // 第三方授权登录的用户 id
-  open_id: { type: String, required: true, default: '' },
+  open_id: { type: String, required: true, default: "" },
 
   // 关联用户表的 id, 目前用不到
-  user_id: { type: String, default: '' },
+  user_id: { type: String, default: "" },
 
   // 名字
-  name: { type: String, default: '' },
+  name: { type: String, default: "" },
 
   // 用户类型 0: 博主 1: 其它用户 2: github 3: wexin 4: qq (0, 1 是注册的用户, 2, 3, 4 都是第三方授权登录的用户)
   type: { type: Number, default: 1 },
 
   // 手机
-  phone: { type: String, default: '' },
+  phone: { type: String, default: "" },
 
   // 邮箱
-  email: { type: String, default: '' },
+  email: { type: String, default: "" },
 
   // 地址
-  location: { type: String, default: '' },
+  location: { type: String, default: "" },
 
   // 个人介绍
-  introduce: { type: String, default: '' },
+  introduce: { type: String, default: "" },
 
   // 头像
-  avatar: { type: String, default: 'user' },
+  avatar: { type: String, default: "user" },
 
   // 创建日期
   create_time: { type: Date, default: Date.now },
@@ -44,11 +43,11 @@ const OAuthSchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 OAuthSchema.plugin(autoIncrement.plugin, {
-  model: 'OAuth',
-  field: 'id',
+  model: "OAuth",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
-module.exports = mongoose.model('OAuth', OAuthSchema);
+module.exports = mongoose.model("OAuth", OAuthSchema);

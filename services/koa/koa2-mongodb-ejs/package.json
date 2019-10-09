@@ -6,6 +6,8 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "consola": "^2.10.1",
+    "cookie-parser": "^1.4.4",
     "debug": "~2.6.8",
     "ejs": "~2.5.5",
     "koa": "^2.3.0",
@@ -15,14 +17,13 @@
     "koa-logger": "^3.0.0",
     "koa-onerror": "^3.1.0",
     "koa-router": "^7.2.1",
+    "koa-session": "^5.12.3",
     "koa-static": "^3.0.0",
     "koa-views": "^6.0.2",
     "mongodb": "^3.3.0",
     "mongoose": "^5.6.9",
-    "yargs": "^14.0.0",
-    "consola": "^2.10.1",
-    "cookie-parser": "^1.4.4",
-    "mongoose-auto-increment": "^5.0.1"
+    "mongoose-sequence": "^5.2.1",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",

@@ -4,8 +4,7 @@
  * @module model/timeAxis
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 时间轴模型
 const timeAxisSchema = new mongoose.Schema({
@@ -31,12 +30,12 @@ const timeAxisSchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 timeAxisSchema.plugin(autoIncrement.plugin, {
-  model: 'TimeAxis',
-  field: 'id',
+  model: "TimeAxis",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
 // 时间轴模型
-module.exports = mongoose.model('TimeAxis', timeAxisSchema);
+module.exports = mongoose.model("TimeAxis", timeAxisSchema);

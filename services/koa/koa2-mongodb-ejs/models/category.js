@@ -4,8 +4,7 @@
  * @module model/category
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 分类集合模型
 const categorySchema = new mongoose.Schema({
@@ -13,7 +12,7 @@ const categorySchema = new mongoose.Schema({
   name: { type: String, required: true, validate: /\S+/ },
 
   // 分类描述
-  desc: { type: String, default: '' },
+  desc: { type: String, default: "" },
 
   // 创建日期
   create_time: { type: Date, default: Date.now },
@@ -25,12 +24,12 @@ const categorySchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 categorySchema.plugin(autoIncrement.plugin, {
-  model: 'Category',
-  field: 'id',
+  model: "Category",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
 // 分类模型
-module.exports = mongoose.model('Category', categorySchema);
+module.exports = mongoose.model("Category", categorySchema);

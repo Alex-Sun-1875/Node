@@ -4,8 +4,7 @@
  * @module model/project
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 项目模型
 const projectSchema = new mongoose.Schema({
@@ -37,12 +36,12 @@ const projectSchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 projectSchema.plugin(autoIncrement.plugin, {
-  model: 'Project',
-  field: 'id',
+  model: "Project",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
 // 项目模型
-module.exports = mongoose.model('Project', projectSchema);
+module.exports = mongoose.model("Project", projectSchema);

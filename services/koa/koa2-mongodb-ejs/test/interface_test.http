@@ -1,0 +1,20 @@
+### 注册
+POST https://localhost:3001/api/register
+Content-Type: application/json;charset=UTF-8
+
+{
+  "desc": "Hello World!!!",
+  "email": "200359659@qq.com",
+  "name": "Momo",
+  "password": "qq200359",
+  "phone": "18717756952"
+}
+
+### 登录
+POST https://localhost:3001/api/login
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email": "200359659@qq.com",
+  "password": "qq200359"
+}

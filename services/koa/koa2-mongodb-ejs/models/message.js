@@ -4,28 +4,27 @@
  * @module model/message
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 留言模型
 const messageSchema = new mongoose.Schema({
   // 用户 id
-  user_id: { type: String, default: '' },
+  user_id: { type: String, default: "" },
 
   // 姓名
-  name: { type: String, default: '' },
+  name: { type: String, default: "" },
 
   // 头像
-  avatar: { type: String, default: 'user' },
+  avatar: { type: String, default: "user" },
 
   // 电话
-  phone: { type: String, default: '' },
+  phone: { type: String, default: "" },
 
   // 介绍
-  introduce: { type: String, default: '' },
+  introduce: { type: String, default: "" },
 
   // 留言内容
-  content: { type: String, default: '' },
+  content: { type: String, default: "" },
 
   // 回复留言内容
   reply_list: [
@@ -35,7 +34,7 @@ const messageSchema = new mongoose.Schema({
   ],
 
   // 邮箱
-  email: { type: String, default: '' },
+  email: { type: String, default: "" },
 
   // 状态 0 是未处理, 1 是已经处理
   state: { type: Number, default: 0 },
@@ -51,12 +50,12 @@ const messageSchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 messageSchema.plugin(autoIncrement.plugin, {
-  model: 'Message',
-  field: 'id',
+  model: "Message",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
 // 留言模型
-module.exports = mongoose.model('Message', messageSchema);
+module.exports = mongoose.model("Message", messageSchema);

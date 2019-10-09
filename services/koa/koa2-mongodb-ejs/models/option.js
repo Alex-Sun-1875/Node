@@ -4,7 +4,7 @@
  * @module model/option
  */
 
-const { mongoose } = require('../config/mongodb');
+const { mongoose } = require("../config/mongodb");
 
 const optionSchema = mongoose.Schema({
   // 网站标题
@@ -41,4 +41,4 @@ const optionSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Option', optionSchema);
+module.exports = mongoose.model("Option", optionSchema);

@@ -2,7 +2,7 @@ import Article from '../models/article';
 import User from '../models/user';
 import { responseClient, timestampToTime } from '../util/util';
 
-exports.addArticle = (req, res) => {
+exports.addArticle = async (ctx, next) => {
   const {
     title,
     author,
@@ -15,7 +15,7 @@ exports.addArticle = (req, res) => {
     state,
     type,
     origin,
-  } = res.body;
+  } = ctx.request.body;
   let tempArticle = null;
   if (img_url) {
     tempArticle = new Article({
@@ -48,15 +48,24 @@ exports.addArticle = (req, res) => {
     });
   }
 
+  /*
   tempArticle.save().then(data => {
     responseClient(res, 200, 0, '保存成功', data);
   }).catch(err => {
     console.log(err);
     responseClient(res);
   });
+  */
+
+  try {
+    const result = await tempArticle.save();
+    responseClient(ctx, 200, 0, "保存成功", result);
+  } catch (err) {
+    responseClient(ctx);
+  }
 };
 
-exports.updateArticle = (req, res) => {
+exports.updateArticle = async (ctx, next) => {
   const {
     title,
     author,
@@ -70,7 +79,7 @@ exports.updateArticle = (req, res) => {
     type,
     origin,
     id,
-  } = res.body;
+  } = ctx.request.body;
   Article.update(
     { _id: id },
     {
@@ -94,8 +103,8 @@ exports.updateArticle = (req, res) => {
   });
 };
 
-exports.delArticle = (req, res) => {
-  let { id } = req.body;
+exports.delArticle = async (ctx, next) => {
+  let { id } = ctx.body;
   Article.deleteMany({ _id: id })
     .then(result => {
       if (result.n === 1) {
@@ -111,15 +120,15 @@ exports.delArticle = (req, res) => {
 };
 
 // 前台文章列表
-exports.getArticleList = (req, res) => {
-  let keyword = req.query.keyword || null;
-  let state = req.query.state || '';
-  let likes = req.query.likes || '';
-  let tag_id = req.query.tag_id || '';
-  let category_id = req.query.category_id || '';
-  let article = req.query.article || '';
-  let pageNum = parseInt(req.query.pageNum) || 1;
-  let pageSize = parseInt(req.query.pageSize) || 10;
+exports.getArticleList = async (ctx, next) => {
+  let keyword = ctx.query.keyword || null;
+  let state = ctx.query.state || '';
+  let likes = ctx.query.likes || '';
+  let tag_id = ctx.query.tag_id || '';
+  let category_id = ctx.query.category_id || '';
+  let article = ctx.query.article || '';
+  let pageNum = parseInt(ctx.query.pageNum) || 1;
+  let pageSize = parseInt(ctx.query.pageSize) || 10;
 
   // 如果是归档文章, 返回全部文章
   if (article)
@@ -197,7 +206,7 @@ exports.getArticleList = (req, res) => {
               return b.meta.likes - a.meta.likes;
             });
             responseData.list = result;
-          } else if (category) {
+          } else if (category_id) {
             // 根据分类 ID 返回数据
             result.forEach(item => {
               if (item.category.indexOf(category_id) != -1) {
@@ -246,7 +255,7 @@ exports.getArticleList = (req, res) => {
           } else {
             responseData.list = result;
           }
-          responseClient(res, 200, '操作成功', responseData);
+          responseClient(ctx, 200, 0, '操作成功', responseData);
         }
       });
     }

@@ -4,8 +4,7 @@
  * @module model/link
  */
 
-const { mongoose } = require('../config/mongodb');
-const autoIncrement = require('mongoose-auto-increment');
+const { mongoose } = require("../config/mongodb");
 
 // 链接模型
 const linkSchema = new mongoose.Schema({
@@ -13,13 +12,13 @@ const linkSchema = new mongoose.Schema({
   name: { type: String, required: true, validate: /\S+/ },
 
   // 链接描述
-  desc: { type: String, default: '' },
+  desc: { type: String, default: "" },
 
   // 链接 url
-  url: { type: String, required: true, validate: /\S+/, default: '' },
+  url: { type: String, required: true, validate: /\S+/, default: "" },
 
   // 图标
-  icon: { type: String, default: '' },
+  icon: { type: String, default: "" },
 
   // 类型 => // 1: 其它友情链接, 2: 博主个人链接
   type: { type: Number, default: 1 },
@@ -37,11 +36,11 @@ const linkSchema = new mongoose.Schema({
 // 自增 ID 插件配置
 /*
 linkSchema.plugin(autoIncrement.plugin, {
-  model: 'Link',
-  field: 'id',
+  model: "Link",
+  field: "id",
   startAt: 1,
   incrementBy: 1,
 });
 */
 
-module.exports = mongoose.model('Link', linkSchema);
+module.exports = mongoose.model("Link", linkSchema);
