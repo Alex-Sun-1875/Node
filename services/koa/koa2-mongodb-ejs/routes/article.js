@@ -340,12 +340,12 @@ exports.getArticleList = async (ctx, next) => {
 };
 
 // 后台文章列表
-exports.getArticleListAdmin = (req, res) => {
-  let keyword = req.query.keyword || null;
-  let state = req.query.state || '';
-  let likes = req.query.likes || '';
-  let pageNum = parseInt(req.query.pageNum) || 1;
-  let pageSize = parseInt(req.query.pageSize) || 10;
+exports.getArticleListAdmin = async (ctx, next) => {
+  let keyword = ctx.query.keyword || null;
+  let state = ctx.query.state || '';
+  let likes = ctx.query.likes || '';
+  let pageNum = parseInt(ctx.query.pageNum) || 1;
+  let pageSize = parseInt(ctx.query.pageSize) || 10;
   let conditions = {};
   if (!state) {
     if (keyword) {
@@ -381,6 +381,7 @@ exports.getArticleListAdmin = (req, res) => {
     list: [],
   };
 
+  /*
   Article.countDocuments({}, (err, count) => {
     if (err) {
       console.error('Error: ' + err);
@@ -434,15 +435,58 @@ exports.getArticleListAdmin = (req, res) => {
       });
     }
   });
+  */
+  try {
+    let count = await Article.countDocuments({});
+    responseData.count = count;
+    let fields = {
+      title: 1,
+      author: 1,
+      keyword: 1,
+      // content: 1,
+      desc: 1,
+      img_url: 1,
+      tags: 1,
+      category: 1,
+      state: 1,
+      type: 1,
+      origin: 1,
+      comment: 1,
+      like_User_id: 1,
+      meta: 1,
+      create_time: 1,
+      // update_time: 1,
+    };
+    let options = {
+      skip: skip,
+      limit: pageSize,
+      sort: { create_time: -1 },
+    };
+    let result = await Article.find(conditions, fields, options).populate([
+      { path: "tags" },
+      { path: "comments" },
+      { path: "category" },
+    ]).exec();
+    if (likes) {
+      result.sort((a, b) => {
+        return b.meta.likes - a.meta.likes;
+      });
+    }
+    responseData.list = result;
+    responseClient(ctx, 200, 0, "获取后台文章列表成功!");
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // 文章点赞
-exports.likeArticle = (req, res) => {
-  if (!req.session.userInfo) {
-    responseClient(res, 200, 1, '您还没登录, 或者登录信息已过期, 请重新登录! ');
+exports.likeArticle = async (ctx, next) => {
+  if (!ctx.request.session.userInfo) {
+    responseClient(ctx, 200, 1, '您还没登录, 或者登录信息已过期, 请重新登录! ');
     return;
   }
-  let { id, user_id } = req.body;
+  let { id, user_id } = ctx.request.body;
+  /*
   Article.findOne({ _id: id }).then(data => {
     let fields = {};
     data.meta.likes = data.meta.likes + 1;
@@ -472,6 +516,27 @@ exports.likeArticle = (req, res) => {
     responseClient(res);
     console.error('err 2: ', err);
   });
+  */
+  try {
+    let data = await Article.find({ _id: id });
+    let fields = {};
+    data.meta.likes = data.meta.likes + 1;
+    fields.meta = data.meta;
+    let like_users_arr = data.like_users.length ? data.like_users : [];
+    let user = await User.findOne({ _id: id }).exec();
+    let new_like_user = {};
+    new_like_user.id = user._id;
+    new_like_user.name = user.name;
+    new_like_user.avatar = user.avatar;
+    new_like_user.create_time = user.create_time;
+    new_like_user.type = user.type;
+    new_like_user.introduce = user.introduce;
+    like_users_arr.push(new_like_user);
+    let result = await Article.update({ _id: id });
+    responseClient(ctx, 200, 0, "操作成功!", result);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // 文章详情
