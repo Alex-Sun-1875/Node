@@ -13,6 +13,7 @@ module.exports = {
     responseData.code = code;
     responseData.message = message;
     responseData.data = data;
+    ctx.status = httpCode;
     ctx.body = responseData;
   },
   // 时间格式化成 2018-12-12 12:12:00

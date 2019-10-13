@@ -168,6 +168,7 @@ exports.getArticleList = async (ctx, next) => {
     list: [],
   };
 
+  /*
   Article.countDocuments({}, (err, count) => {
     if (err) {
       console.log('Error: ' + err);
@@ -194,6 +195,7 @@ exports.getArticleList = async (ctx, next) => {
         limit: pageSize,
         sort: { create_time: -1 },
       };
+      console.log("###sunlh### getArticleList 1111");
       Article.find(conditions, fields, options, (error, result) => {
         if (error) {
           console.log('Error: ' + error);
@@ -256,10 +258,85 @@ exports.getArticleList = async (ctx, next) => {
             responseData.list = result;
           }
           responseClient(ctx, 200, 0, '操作成功', responseData);
+          console.log("###sunlh### getArticleList 2222");
         }
       });
     }
   });
+  */
+  try {
+    let count = await Article.countDocuments({});
+    console.log("###sunlh### getArticleList: count = ", count);
+    responseData.count = count;
+    let fields = {
+      title: 1,
+      desc: 1,
+      image_url: 1,
+      tags: 1,
+      category: 1,
+      meta: 1,
+      create_time: 1,
+    };
+    if (article) {
+      fields = {
+        title: 1,
+        create_time: 1,
+      };
+    }
+    let options = {
+      skip: skip,
+      limit: pageSize,
+      sort: { create_time: -1 },
+    };
+    let result = await Article.find(conditions, fields, options);
+    console.log("###sunlh### getArticleList: result = ", result);
+    let newList = [];
+    if (likes) {
+      result.sort((a, b) => {
+        return b.meta.likes - a.meta.likes;
+      });
+      responseData.list = result;
+    } else if (category_id) {
+      result.forEach(item => {
+        if (item.category.indexOf(category_id) != -1) {
+          newList.push(item);
+        }
+      });
+      let len = newList.length;
+      responseData.count = len;
+      responseData.list = newList;
+    } else if (article) {
+      archiveList = [];
+      let obj = {};
+      result.forEach(e => {
+        let year = e.create_time.getFullYear();
+        if (!obj[year]) {
+          obj[year] = [];
+          obj[year].push(e);
+        } else {
+          obj[year].push(e);
+        }
+      });
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          const element = obj[key];
+          let item = {};
+          item.year = key;
+          item.list = element;
+          archiveList.push(item);
+        }
+      }
+      archiveList.sort((a, b) => {
+        return b.year = a.year;
+      });
+      responseData.list = archiveList;
+    } else {
+      responseData.list = result;
+    }
+    responseClient(ctx, 200, 0, '获取文章列表成功!', responseData);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // 后台文章列表
