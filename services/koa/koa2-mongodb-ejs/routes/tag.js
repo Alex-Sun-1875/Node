@@ -18,6 +18,7 @@ exports.getTagList = (req, res) => {
     count: 0,
     list: [],
   };
+  /*
   Tag.countDocuments(conditions, (err, count) => {
     if (err) {
       console.error('err: ', err);
@@ -30,7 +31,7 @@ exports.getTagList = (req, res) => {
         // icon: 1,
         // create_time: 1,
         // update_time: 1,
-      }; // 带饭回字段
+      }; // 带返回字段
       let options = {
         skip: skip,
         limit: pageSize,
@@ -46,6 +47,25 @@ exports.getTagList = (req, res) => {
       });
     }
   });
+  */
+  try {
+    let count = await Tag.countDocuments(conditions);
+    responseData.count = count;
+    let fields = {
+      _id: 1,
+      name: 1,
+    };
+    let options = {
+      skip: skip,
+      limit: pageSize,
+      sort: { create_time: -1 },
+    };
+    let result = await Tag.find(conditions, fields, options);
+    responseData.list = result;
+    responseClient(ctx, 200, 0, '获取文章tag成功!', responseData);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.addTag = (req, res) => {
