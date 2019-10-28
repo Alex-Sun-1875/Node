@@ -22,7 +22,7 @@ const adminSchema = new mongoose.Schema({
 
   // 用户类型 0: 博主, 1: 其它用户, 2: github, 3: weixin, 4: qq
   // (0, 1 是注册用户, 2, 3, 4都是第三方授权登录用户)
-  type: { type: Number, default: 1 },
+  type: { type: Number, default: 0 },
 
   // 手机
   phone: { type: String, default: "" },

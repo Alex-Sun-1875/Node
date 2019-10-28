@@ -159,16 +159,17 @@ exports.logout = (req, res) => {
   }
 };
 
-exports.loginAdmin = (req, res) => {
-  let { email, password } = req.body;
+exports.loginAdmin = async (ctx, next) => {
+  let { email, password } = ctx.request.body;
   if (!email) {
-    responseClient(res, 400, 2, "邮箱不能为空!");
+    responseClient(ctx, 400, 2, "邮箱不能为空!");
     return;
   }
   if (!password) {
-    responseClient(res, 400, 2, "密码不能为空!");
+    responseClient(ctx, 400, 2, "密码不能为空!");
     return;
   }
+  /*
   User.findOne({
     email,
     password: md5(password + MD5_SUFFIX),
@@ -187,6 +188,25 @@ exports.loginAdmin = (req, res) => {
   }).catch(err => {
     responseClient(res);
   });
+  */
+  try {
+    let userInfo = await User.findOne({
+      email,
+      password: md5(password + MD5_SUFFIX)
+    });
+    if (userInfo) {
+      if (userInfo.type === 0) {
+        ctx.session.userInfo = userInfo;
+        responseClient(ctx, 200, 0, "管理员用户登录成功!", userInfo);
+      } else {
+        responseClient(ctx, 403, 1, "只有管理员用户才能登录后台!");
+      }
+    } else {
+      responseClient(ctx, 400, 1, "用户名或者密码错误!");
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.register = async (ctx, next) => {

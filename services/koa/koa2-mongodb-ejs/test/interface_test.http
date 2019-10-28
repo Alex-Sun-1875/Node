@@ -3,11 +3,12 @@ POST https://localhost:3001/api/register
 Content-Type: application/json;charset=UTF-8
 
 {
-  "desc": "Hello World!!!",
+  "introduce": "Hello World!!!",
   "email": "200359659@qq.com",
   "name": "Momo",
   "password": "qq200359",
-  "phone": "18717756952"
+  "phone": "18717756952",
+  "type": 0
 }
 
 ### 登录
